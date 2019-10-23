@@ -2,6 +2,8 @@
 
 <robot name="my_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
 
+  <xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
+  
   <link name="robot_footprint"></link>
 
   <joint name="robot_footprint_joint" type="fixed">
@@ -187,7 +189,9 @@
 
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0"/>
-      <geometry filename="package://my_robot/meshes/hokuyo.dae"/>
+      <geometry>
+        <mesh filename="package://my_robot/meshes/hokuyo.dae"/>
+      </geometry>
     </visual>
 
     <inertial>
@@ -202,10 +206,23 @@
   </link>
 
   <joint type="fixed" name="hokuyo_joint">
-    <origin xyz="0.15 0 0" rpy="0 0 0"/>
+    <origin xyz="0.15 0 0.1" rpy="0 0 0"/>
     <child link="hokuyo"/>
     <parent link="chassis"/>
     <axis xyz="0 1 0" rpy="0 0 0"/>
   </joint>
+
+  <gazebo reference="left_wheel">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="right_wheel">
+    <material>Gazebo/Green</material>
+  </gazebo>
+  <gazebo reference="camera">
+    <material>Gazebo/Red</material>
+  </gazebo>
+  <gazebo reference="chassis">
+    <material>Gazebo/Blue</material>
+  </gazebo>
 
 </robot>
